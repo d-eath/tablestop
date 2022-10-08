@@ -1,0 +1,123 @@
+{#
+Fichier : signup.html.twig
+Date : 2021-04-01
+Auteur : Davis Eath
+Fonction : Point d'entrée pour la page création de compte/inscription
+#}
+
+{% extends 'base.html.twig' %}
+
+{% block title 'inscription / ' ~ parent() %}
+
+{% set template = 'signup' %}
+
+{% form_theme form _self %}
+
+{% block form_errors %}
+{% for error in errors %}
+<span class="form-error">{{ error.messageTemplate|trans(error.messageParameters, 'validators') }}</span>
+{% endfor %}
+{% endblock form_errors %}
+
+{% block main %}
+<div class="ui container grid">
+    <div class="column">
+        {% include('common/messages.html.twig') %}
+
+        <h1>Création d'un compte</h1>
+        <p>
+            Vous avez déjà un compte avec nous ?
+            <a href="{{ path('login') }}">Connectez-vous</a>.
+        </p>
+
+        {{ form_start(form, { 'attr': { 'class': 'ui form' } }) }}
+
+        <h4 class="ui dividing header">Identifiant</h4>
+        <div class="field {{ form.username.vars.valid ? '' : 'error' }}">
+            {{ form_label(form.username, 'Nom d\'utilisateur') }}
+            {{ form_widget(form.username) }}
+            {{ form_errors(form.username) }}
+        </div>
+        <div class="fields">
+            <div class="six wide field {{ form.firstName.vars.valid ? '' : 'error' }}">
+                {{ form_label(form.firstName, 'Prénom') }}
+                {{ form_widget(form.firstName) }}
+                {{ form_errors(form.firstName) }}
+            </div>
+            <div class="six wide field {{ form.lastName.vars.valid ? '' : 'error' }}">
+                {{ form_label(form.lastName, 'Nom') }}
+                {{ form_widget(form.lastName) }}
+                {{ form_errors(form.lastName) }}
+            </div>
+            <div class="four wide field {{ form.gender.vars.valid ? '' : 'error' }}">
+                {{ form_label(form.gender, 'Genre') }}
+                {{ form_widget(form.gender, {'attr': { 'class': 'ui fluid dropdown' }}) }}
+                {{ form_errors(form.gender) }}
+            </div>
+        </div>
+
+        <h4 class="ui dividing header">Emplacement</h4>
+        <div class="field {{ form.address.vars.valid ? '' : 'error' }}">
+            {{ form_label(form.address, 'Adresse') }}
+            {{ form_widget(form.address) }}
+            {{ form_errors(form.address) }}
+        </div>
+        <div class="fields">
+            <div class="six wide field {{ form.city.vars.valid ? '' : 'error' }}">
+                {{ form_label(form.city, 'Ville') }}
+                {{ form_widget(form.city) }}
+                {{ form_errors(form.city) }}
+            </div>
+            <div class="five wide field {{ form.province.vars.valid ? '' : 'error' }}">
+                {{ form_label(form.province, 'Province') }}
+                {{ form_widget(form.province, {'attr': {'class': 'ui fluid dropdown'}}) }}
+                {{ form_errors(form.province) }}
+            </div>
+            <div class="five wide field {{ form.postalCode.vars.valid ? '' : 'error' }}">
+                {{ form_label(form.postalCode, 'Code postal') }}
+                {{ form_widget(form.postalCode) }}
+                {{ form_errors(form.postalCode) }}
+            </div>
+        </div>
+
+        <h4 class="ui dividing header">Contact</h4>
+        <div class="two fields">
+            <div class="field {{ form.email.vars.valid ? '' : 'error' }}">
+                {{ form_label(form.email, 'Adresse courriel') }}
+                {{ form_widget(form.email) }}
+                {{ form_errors(form.email) }}
+            </div>
+            <div class="field {{ form.phoneNumber.vars.valid ? '' : 'error' }}">
+                {{ form_label(form.phoneNumber, 'Numéro de téléphone') }}
+                {{ form_widget(form.phoneNumber) }}
+                {{ form_errors(form.phoneNumber) }}
+            </div>
+        </div>
+
+        <h4 class="ui dividing header">Mot de passe</h4>
+        <div class="two fields">
+            <div class="field {{ form.password.first.vars.valid ? '' : 'error' }}">
+                {{ form_label(form.password.first, 'Choisissez un mot de passe') }}
+                {{ form_widget(form.password.first) }}
+                {{ form_errors(form.password.first) }}
+            </div>
+            <div class="field {{ form.password.second.vars.valid ? '' : 'error' }}">
+                {{ form_label(form.password.second, 'Confirmez votre mot de passe') }}
+                {{ form_widget(form.password.second) }}
+                {{ form_errors(form.password.second) }}
+            </div>
+        </div>
+
+        <div class="float-right">
+            {{ form_widget(form.submit, {
+            'attr': { 'class': 'ui right labeled icon primary button' },
+            'label': '<i class="right arrow icon"></i> Suivant',
+            'label_html': true
+            }) }}
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+</div>
+
+{% endblock %}

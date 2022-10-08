@@ -1,0 +1,36 @@
+{#
+Fichier : product.html.twig
+Date : 2021-02-04
+Auteur : Davis Eath
+Fonction : HTML interne des détails d'un produit
+#}
+
+<div class="ui medium image">
+    {% if asset_exists('images/products/' ~ product.id ~ '_2.jpg') %}
+    <img class="product-image" src="{{ asset('images/products/' ~ product.id ~ '_2.jpg') }}" alt="" />
+    {% else %}
+    <img class="product-image" src="{{ asset('images/no-image.png') }}" alt="" />
+    {% endif %}
+</div>
+<div class="description product-details" data-product-id="{{ product.id }}">
+    <div class="ui header">{{ product.title }}</div>
+    <p class="category">{{ product.category.name }}</p>
+    <p>Prix : <span class="product-price">{{ product.price|format_price }}</span></p>
+    <div class="product-description">
+        {{ product.description }}
+    </div>
+    <p class="product-stock">Quantité en inventaire : <b>{{ product.inventoryStock }}</b></p>
+</div>
+
+<script>
+    (() => {
+        const md = new markdownit('zero');
+
+        md.enable(['blockquote', 'emphasis', 'list', 'strikethrough']);
+
+        const description = $('.product-description');
+        const html = md.render(description.text());
+
+        description.html(html);
+    })();
+</script>

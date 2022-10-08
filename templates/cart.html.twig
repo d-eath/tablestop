@@ -1,0 +1,140 @@
+{#
+Fichier : cart.html.twig
+Date : 2021-03-07
+Auteur : Davis Eath
+Fonction : Point d'entrée pour la page panier
+#}
+
+{% extends 'base.html.twig' %}
+
+{% set template = 'cart' %}
+
+{% block title 'panier / ' ~ parent() %}
+
+{% block main %}
+<div class="ui sixteen column centered grid">
+    <div class="twelve wide column">
+        <h1>Votre panier</h1>
+        {% if cart|length > 0 %}
+        <table class="ui celled table" style="border-collapse: collapse;">
+            <thead>
+                <tr>
+                    <th style="width: 60%">Article</th>
+                    <th style="width: 12%">Prix unitaire</th>
+                    <th style="width: 12%">Quantité</th>
+                    <th style="width: 12%">Prix</th>
+                    <th style="width: 4%"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart %}
+                <tr>
+                    <td>
+                        {% if asset_exists('images/products/' ~ item.product.id ~ '_1.jpg') %}
+                        <img class="product-icon" src="{{ asset('images/products/' ~ item.product.id ~ '_1.jpg') }}"
+                            alt="" />
+                        {% else %}
+                        <img class="product-icon" src="{{ asset('images/no-image.png') }}" alt="" />
+                        {% endif %}
+                        {{ item.product.title }}
+                    </td>
+                    <td class="table-text-right">{{ item.product.price|format_price }}</td>
+                    <td>
+                        <select class="ui fluid dropdown" data-product-id="{{ item.product.id }}">
+                            <option selected hidden value="">{{ item.quantity }}</option>
+                            {% for i in 1..20 %}
+                            <option value="{{ i }}">{{ i }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td class="table-text-right">{{ item.price|format_price }}</td>
+                    <td class="table-text-center">
+                        <a href="{{ path('cart', { action: 'item_remove', id: item.product.id }) }}"
+                            class="ui icon button">
+                            <i class="trash icon"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+                <tr class="table-top-separator">
+                    <td class="table-text-right bold" colspan="3">Total des produits </td>
+                    <td class="table-text-right">{{ breakdown.itemsPrice|format_price }}</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="table-text-right bold" colspan="3">Frais de livraison </td>
+                    <td class="table-text-right">{{ breakdown.shippingFee|format_price }}</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="table-text-right bold" colspan="3">Total avant taxes </td>
+                    <td class="table-text-right">{{ breakdown.subTotal|format_price }}</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="table-text-right bold" colspan="3">{{breakdown.tax1.name}}
+                        ({{ breakdown.tax1.rate|format_percent }}) </td>
+                    <td class="table-text-right">{{ breakdown.tax1Value|format_price }}</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="table-text-right bold" colspan="3">{{breakdown.tax2.name}}
+                        ({{ breakdown.tax2.rate|format_percent }}) </td>
+                    <td class="table-text-right">{{ breakdown.tax2Value|format_price }}</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="table-text-right bold" colspan="3">Total </td>
+                    <td class="table-text-right bold">{{ breakdown.total|format_price }}</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="float-left">
+            <a href="{{ path('catalog') }}" class="ui labeled icon button">
+                <i class="left arrow icon"></i>
+                Retourner au catalogue
+            </a>
+        </div>
+        <div class="float-right">
+            <a href="{{ path('cart', { action: 'clear' }) }}" class="ui negative button">
+                <i class="dumpster icon"></i>
+                Vider le panier
+            </a>
+            <a href="{{ path('checkout') }}" class="ui right labeled positive icon button">
+                <i class="right arrow icon"></i>
+                Passer la commande
+            </a>
+        </div>
+        {% else %}
+        <div class="ui icon message">
+            <i class="shopping cart icon"></i>
+            <div class="content">
+                <div class="header">Votre panier est vide</div>
+                <p>Vous pouvez y ajouter des articles dans le <a href="{{ path('catalog') }}">catalogue</a>.
+                </p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock %}
+
+{% block post_javascripts %}
+{{ parent() }}
+
+<script>
+    $('.ui.fluid.dropdown').dropdown();
+
+    $('select').change(function () {
+        const id = $(this).data('product-id');
+        const value = $(this).find(':selected').val();
+
+        $('select').prop('disabled', true);
+
+        window.location.replace(`${ECI_URL}&id=${id}&value=${value}`);
+    })
+</script>
+
+{% endblock %}

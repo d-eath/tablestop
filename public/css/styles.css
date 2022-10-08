@@ -1,0 +1,278 @@
+span.brand {
+    font-size: 18px;
+    font-style: italic;
+    font-weight: bold;
+    color: #60B0F4;
+}
+
+.main {
+    padding-top: 2rem;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.ui.card {
+    width: 315px !important;
+}
+
+.ui.card > .image {
+    background: rgba(0, 0, 0, 0) !important;
+}
+
+.ui.card > .content > .header {
+    font-size: 1.1rem !important;
+    font-weight: 100 !important;
+    line-height: 1.5em !important;
+    height: 4.5em;
+    overflow: hidden;
+}
+
+.product-cover {
+    height: 315px !important;
+    object-fit: contain;
+    padding: 12px;
+}
+
+.banner {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../images/banner.jpg');
+    background-position: center;
+    background-size: cover;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.banner-text {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.banner-text > img {
+    width: 12vw;
+    vertical-align: middle;
+}
+
+.banner-text > span {
+    font-size: 8vw;
+    font-style: italic;
+    font-weight: bold;
+    color: #60B0F4;
+    text-shadow: 3px 3px black;
+    vertical-align: middle;
+}
+
+.ui.menu {
+    margin: 0;
+    border-radius: 0;
+}
+
+.ui.fixed.sticky + div {
+    margin-top: 60px;
+}
+
+.footer {
+    /*background: #1b1c1d;*/
+    text-align: center;
+    color: gray;
+    margin-top: 64px;
+    padding: 8px;
+    font-style: italic;
+    font-weight: bold;
+}
+
+.product-price {
+    color: #B12704;
+    font-size: 125%;
+    margin-left: 4px;
+}
+
+.ui.modal > .content > .description {
+    width: 55% !important;
+}
+
+.ui.modal .ui.header {
+    margin-bottom: 0;
+}
+
+.category {
+    color: gray;
+}
+
+.product-image {
+    height: 300px !important;
+    width: 300px;
+    object-fit: contain;
+}
+
+.product-image-preview {
+    height: 120px !important;
+    width: 120px;
+    object-fit: contain;
+}
+
+.form-product-image {
+    text-align: center;
+}
+
+.product-stock {
+    margin-top: 24px;
+    margin-bottom: 12px !important;
+    color: gray;
+}
+
+.contact-content {
+    font-size: 120%;
+}
+
+.brand-text {
+    font-weight: bold;
+    font-style: italic;
+}
+
+.table-text-right {
+    text-align: right !important;
+}
+
+.table-text-center {
+    text-align: center !important;
+}
+
+.table-top-separator {
+    border-top: 5px solid #DEDEDE !important;
+}
+
+.product-icon {
+    height: 50px !important;
+    width: 50px;
+    object-fit: contain;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+.spin-animation { 
+    animation-name: spin !important;
+    animation-duration: 1000ms !important;
+    animation-iteration-count: infinite !important;
+    animation-timing-function: linear !important; 
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right;
+}
+
+@keyframes spin {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
+}
+
+.form-error {
+    color: #9f3a38;
+}
+
+.confirm-signin > tbody > tr > td:nth-child(odd) {
+    width: 30%;
+}
+
+.confirm-signin > tbody > tr > td:nth-child(even) {
+    width: 70%;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.login {
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.messages-container {
+    margin-top: 5px !important;
+}
+
+.ui.fluid.dropdown.selection > .default.text {
+    color: black !important;
+}
+
+.full-address {
+    list-style-type: none;
+}
+
+.larger-text p {
+    font-size: 105%;
+}
+
+.larger-text li {
+    font-size: 110%;
+}
+
+.product-order {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.cancel-prompt {
+    display: flex;
+    justify-content: space-between;
+    align-items: center
+}
+
+.top-table-button {
+    margin-bottom: 16px;
+}
+
+.margin-top {
+    margin-top: 1em;
+}
+
+blockquote { 
+    display: block;
+    padding: 0 12px;
+    margin: 1em 0em;
+    border-left: 4px solid #dfe2e5;
+    color: #6a737d;
+}
+
+.form-section {
+    margin-bottom: 32px;
+}
+
+.product-title-preview {
+    margin-bottom: 32px;
+}
+
+h1 {
+    vertical-align: middle;
+}
+
+h1 > .label {
+    vertical-align: middle !important;
+    margin-top: -0.25em !important;
+}
+
+.ui.toggle.checkbox.danger-toggle input:checked ~ label::before {
+    background-color: #ff392b !important;
+}
+
+.ui.toggle.checkbox.danger-toggle input:focus:checked ~ label::before {
+    background-color: #ff392b !important;
+}

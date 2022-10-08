@@ -1,0 +1,90 @@
+{#
+Fichier : checkout.html.twig
+Date : 2021-04-23
+Auteur : Davis Eath
+Fonction : Point d'entrée pour la page de confirmation d'une commande
+#}
+
+{% extends 'base.html.twig' %}
+
+{% block title 'commande / ' ~ parent() %}
+
+{% set template = 'none' %}
+
+{% block main %}
+<div class="ui container grid">
+    <div class="column">
+        <h1>Récapitulatif de votre commande</h1>
+        <table class="ui celled table" style="border-collapse: collapse;">
+            <thead>
+                <tr>
+                    <th style="width: 64%">Article</th>
+                    <th style="width: 12%">Prix unitaire</th>
+                    <th style="width: 12%">Quantité</th>
+                    <th style="width: 12%">Prix</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart %}
+                <tr>
+                    <td>
+                        {% if asset_exists('images/products/' ~ item.product.id ~ '_1.jpg') %}
+                        <img class="product-icon" src="{{ asset('images/products/' ~ item.product.id ~ '_1.jpg') }}"
+                            alt="" />
+                        {% else %}
+                        <img class="product-icon" src="{{ asset('images/no-image.png') }}" alt="" />
+                        {% endif %}
+                        {{ item.product.title }}
+                    </td>
+                    <td class="table-text-right">{{ item.product.price|format_price }}</td>
+                    <td class="table-text-right">{{ item.quantity }}</td>
+                    <td class="table-text-right">{{ item.price|format_price }}</td>
+                </tr>
+                {% endfor %}
+                <tr class="table-top-separator">
+                    <td class="table-text-right bold" colspan="3">Total des produits </td>
+                    <td class="table-text-right">{{ breakdown.itemsPrice|format_price }}</td>
+                </tr>
+                <tr>
+                    <td class="table-text-right bold" colspan="3">Frais de livraison </td>
+                    <td class="table-text-right">{{ breakdown.shippingFee|format_price }}</td>
+                </tr>
+                <tr>
+                    <td class="table-text-right bold" colspan="3">Total avant taxes </td>
+                    <td class="table-text-right">{{ breakdown.subTotal|format_price }}</td>
+                </tr>
+                <tr>
+                    <td class="table-text-right bold" colspan="3">{{breakdown.tax1.name}}
+                        ({{ breakdown.tax1.rate|format_percent }}) </td>
+                    <td class="table-text-right">{{ breakdown.tax1Value|format_price }}</td>
+                </tr>
+                <tr>
+                    <td class="table-text-right bold" colspan="3">{{breakdown.tax2.name}}
+                        ({{ breakdown.tax2.rate|format_percent }}) </td>
+                    <td class="table-text-right">{{ breakdown.tax2Value|format_price }}</td>
+                </tr>
+                <tr>
+                    <td class="table-text-right bold" colspan="3">Total </td>
+                    <td class="table-text-right bold">{{ breakdown.total|format_price }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="float-left">
+            <a href="{{ path('catalog') }}" class="ui labeled icon button">
+                <i class="store alternate icon"></i>
+                Retourner au catalogue
+            </a>
+            <a href="{{ path('cart') }}" class="ui labeled icon button">
+                <i class="shopping cart icon"></i>
+                Retourner au panier
+            </a>
+        </div>
+        <div class="float-right">
+            <a href="{{ path('payment') }}" class="ui right labeled positive icon button">
+                <i class="check icon"></i>
+                Confirmer la commande
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

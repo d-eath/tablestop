@@ -1,0 +1,85 @@
+{#
+Fichier : payment.html.twig
+Date : 2021-04-23
+Auteur : Davis Eath
+Fonction : Point d'entrée pour la page de paiement
+#}
+
+{% extends 'base.html.twig' %}
+
+{% block title 'paiement / ' ~ parent() %}
+
+{% set template = 'none' %}
+
+{% block main %}
+<div class="ui container grid">
+    <div class="column">
+        <h1>Paiement de la commande</h1>
+        <form class="ui form">
+            <div id="cardType" class="field">
+                <label class="required">Type de carte</label>
+                <div class="ui fluid selection dropdown">
+                    <input type="hidden" autocomplete="off" name="cardType">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Choisissez...</div>
+                    <div class="menu">
+                        <div class="item" data-value="visa">
+                            <img class="ui mini image" src="{{ asset('images/cards/visa.png') }}">
+                            Visa
+                        </div>
+                        <div class="item" data-value="mastercard">
+                            <img class="ui mini image" src="{{ asset('images/cards/mastercard.png') }}">
+                            Mastercard
+                        </div>
+                        <div class="item" data-value="american_express">
+                            <img class="ui mini image" src="{{ asset('images/cards/american_express.png') }}">
+                            American Express
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="fields">
+                <div id="cardNumber" class="nine wide field">
+                    <label class="required">Numéro de la carte</label>
+                    <input disabled type="text" autocomplete="off" name="cardNumber">
+                </div>
+                <div id="expiration" class="four wide field">
+                    <label class="required">Date d'expiration</label>
+                    <input disabled type="text" autocomplete="off" name="expiration">
+                </div>
+                <div id="verification" class="three wide field">
+                    <label class="required">Code de vérification</label>
+                    <input disabled type="text" autocomplete="off" name="verification">
+                </div>
+            </div>
+            <div class="float-left">
+                <a href="{{ path('catalog') }}" class="ui labeled icon button">
+                    <i class="store alternate icon"></i>
+                    Retourner au catalogue
+                </a>
+                <a href="{{ path('cart') }}" class="ui labeled icon button">
+                    <i class="shopping cart icon"></i>
+                    Retourner au panier
+                </a>
+            </div>
+            <div class="float-right">
+                <a id="submit" class="ui right labeled primary icon button">
+                    <i class="dollar sign icon"></i>
+                    Payer
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block post_javascripts %}
+{{ parent() }}
+
+<script>
+    const SUCCESS_URL = "{{ path('checkout_success')|escape('js') }}";
+</script>
+
+<script src="{{ asset('js/cc-manager.js') }}"></script>
+
+{% endblock %}

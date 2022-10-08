@@ -1,0 +1,62 @@
+{#
+Fichier : inventory.html.twig
+Date : 2021-05-16
+Auteur : Davis Eath
+Fonction : Page admin produits de l'inventaire
+#}
+
+{% extends 'admin/base.html.twig' %}
+
+{% block title 'inventaire / ' ~ parent() %}
+
+{% set page = 'inventory' %}
+
+{% block main %}
+
+<div class="ui container grid">
+    <div class="sixteen wide column">
+        {% include('common/messages.html.twig') %}
+    </div>
+
+    {% include('common/admin_menu.html.twig') %}
+
+    <div class="twelve wide column">
+        <h1>Produits de l'inventaire</h1>
+        {% if products|length > 0 %}
+        <table class="ui celled table">
+            <thead>
+                <tr>
+                    <th style="width: 64%">Produit</th>
+                    <th style="width: 16%">Prix</th>
+                    <th style="width: 10%">En stock</th>
+                    <th style="width: 10%">Seuil min.</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                <tr>
+                    <td><a href="{{ path('admin_products_edit', { 'id': product.id }) }}">{{ product.title }}</a></td>
+                    <td class="table-text-right">{{ product.price|format_price }}</td>
+                    <td class="table-text-right">{{ product.inventoryStock|number_format(0, ',', ' ') }}</td>
+                    <td class="table-text-right">{{ product.minRestock|number_format(0, ',', ' ') }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="ui icon message">
+            <i class="robot icon"></i>
+            <div class="content">
+                <div class="header">Aucun produit</div>
+                <p>Cette boutique n'a aucun produit enregistré.</p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block post_javascripts %}
+{{ parent() }}
+
+{% endblock %}

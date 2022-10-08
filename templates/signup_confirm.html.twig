@@ -1,0 +1,107 @@
+{#
+Fichier : signup_confirm.html.twig
+Date : 2021-04-01
+Auteur : Davis Eath
+Fonction : Point d'entrée pour la page de confirmation pour la création d'un compte
+#}
+
+{% extends 'base.html.twig' %}
+
+{% block title 'inscription / ' ~ parent() %}
+
+{% set template = 'signup' %}
+
+{% block main %}
+<div class="ui container grid">
+    <div class="column">
+        <h1>Création d'un compte</h1>
+        <p>Veuillez confirmer la création d'un compte avec les informations suivantes.</p>
+
+        <table class="ui celled striped table confirm-signin">
+            <thead>
+                <tr>
+                    <th colspan="2">Identifiant</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Nom d'utilisateur</td>
+                    <td>{{ customer.username }}</td>
+                </tr>
+                <tr>
+                    <td>Prénom</td>
+                    <td>{{ customer.firstName }}</td>
+                </tr>
+                <tr>
+                    <td>Nom de famille</td>
+                    <td>{{ customer.lastName }}</td>
+                </tr>
+                <tr>
+                    <td>Genre</td>
+                    <td>{{ customer.gender|format_gender }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="ui celled striped table confirm-signin">
+            <thead>
+                <tr>
+                    <th colspan="2">Emplacement</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Adresse</td>
+                    <td>{{ customer.address }}</td>
+                </tr>
+                <tr>
+                    <td>Ville</td>
+                    <td>{{ customer.city }}</td>
+                </tr>
+                <tr>
+                    <td>Province</td>
+                    <td>{{ customer.province|format_province }}</td>
+                </tr>
+                <tr>
+                    <td>Code postal</td>
+                    <td>{{ customer.postalCode }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="ui celled striped table confirm-signin">
+            <thead>
+                <tr>
+                    <th colspan="2">Contact</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Adresse courriel</td>
+                    <td>{{ customer.email }}</td>
+                </tr>
+                <tr>
+                    <td>Numéro de téléphone</td>
+                    <td>{{ customer.phoneNumber }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>
+            En cliquant sur « Créer le compte », vous acceptez les
+            <a href="#">conditions d'utilisation</a>
+            et la
+            <a href="#">politique de confidentialité</a>
+            de tablestop.
+        </p>
+        <form class="float-right" method="post">
+            <button class="ui positive button" type="submit" name="action" value="confirm">
+                <i class="check icon"></i>
+                Créer le compte
+            </button>
+            <button class="ui button" type="submit" name="action" value="cancel">
+                Annuler
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

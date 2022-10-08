@@ -1,0 +1,56 @@
+{#
+Fichier : categories_new.html.twig
+Date : 2021-05-16
+Auteur : Davis Eath
+Fonction : Page admin ajout d'une catégorie
+#}
+
+{% extends 'admin/base.html.twig' %}
+
+{% block title 'catégories / ' ~ parent() %}
+
+{% set page = 'categories_new' %}
+
+{% block main %}
+
+<div class="ui container grid">
+    <div class="sixteen wide column">
+        {% include('common/messages.html.twig') %}
+    </div>
+
+    {% include('common/admin_menu.html.twig') %}
+
+    <div class="twelve wide column">
+        <h1>Ajouter une catégorie</h1>
+
+        <form class="ui fluid action input" method="POST">
+            <input type="text" name="name" maxlength="50" placeholder="Nom de catégorie" autofocus>
+            <button class="ui primary button">Ajouter</button>
+        </form>
+
+        {% if categories|length > 0 %}
+        <h3>Catégories existantes</h3>
+        <table class="ui celled table">
+            <thead>
+                <tr>
+                    <th style="width: 10%">ID</th>
+                    <th style="width: 65%">Nom de catégorie</th>
+                    <th style="width: 25%">Nombre d'utilisation</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for category in categories %}
+                <tr>
+                    <td>{{ category.id }}</td>
+                    <td>{{ category.name }}</td>
+                    <td>{{ category.products|length }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{{ path('admin_categories') }}" class="ui tertiary button">Gérer des catégories existantes</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{#
+Fichier : login.html.twig
+Date : 2021-05-16
+Auteur : Davis Eath
+Fonction : Page admin de connexion
+#}
+
+{% extends 'admin/base.html.twig' %}
+
+{% block title 'connexion / ' ~ parent() %}
+
+{% block main %}
+<div class="ui container grid messages-container">
+    <div class="column">
+        {% include('common/messages.html.twig') %}
+    </div>
+</div>
+<div class="ui container segment">
+    <div class="ui one column very relaxed stackable grid">
+        <div class="column">
+            <form method="post" class="ui login form">
+                <h2>Connexion au panneau d'administration</h2>
+                <div class="field">
+                    <label>Nom d'utilisateur</label>
+                    <div class="ui left icon input">
+                        <input name="username" type="text" autofocus>
+                        <i class="user icon"></i>
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Mot de passe</label>
+                    <div class="ui left icon input">
+                        <input name="password" type="password">
+                        <i class="lock icon"></i>
+                    </div>
+                </div>
+                <button type="submit" class="ui blue submit button float-right">Connexion</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

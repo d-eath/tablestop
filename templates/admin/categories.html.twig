@@ -1,0 +1,97 @@
+{#
+Fichier : categories.html.twig
+Date : 2021-05-16
+Auteur : Davis Eath
+Fonction : Page admin liste des catégories
+#}
+
+{% extends 'admin/base.html.twig' %}
+
+{% block title 'catégories / ' ~ parent() %}
+
+{% set page = 'categories' %}
+
+{% block main %}
+
+<div class="ui container grid">
+    <div class="sixteen wide column">
+        {% include('common/messages.html.twig') %}
+    </div>
+
+    {% include('common/admin_menu.html.twig') %}
+
+    <div class="twelve wide column">
+        <h1>Liste des catégories</h1>
+        {% if categories|length == 0 %}
+        <div class="ui icon message">
+            <i class="robot icon"></i>
+            <div class="content">
+                <div class="header">Aucune catégorie</div>
+                <p>Cette boutique n'a aucune catégorie enregistrée.</p>
+            </div>
+        </div>
+        {% endif %}
+        <div class="float-right top-table-button">
+            <a href="{{ path('admin_categories_new') }}" class="ui labeled icon button">
+                <i class="plus icon"></i>
+                Ajouter une catégorie
+            </a>
+        </div>
+        {% if categories|length > 0 %}
+        <table class="ui celled table">
+            <thead>
+                <tr>
+                    <th style="width: 10%">ID</th>
+                    <th style="width: 55%">Nom de catégorie</th>
+                    <th style="width: 20%">Nombre d'utilisation</th>
+                    <th style="width: 15%">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for category in categories %}
+                <tr data-category-id="{{ category.id }}" data-category-name="{{ category.name }}">
+                    <td>{{ category.id }}</td>
+                    <td>{{ category.name }}</td>
+                    <td>{{ category.products|length }}</td>
+                    <td class="table-text-center">
+                        <button class="ui primary icon button edit-button">
+                            <i class="pencil alternate icon"></i>
+                        </button>
+                        <button
+                            class="ui negative icon button {% if category.products|length == 0 %}delete-button{% else %}disabled{% endif %}">
+                            <i class="trash alternate icon"></i>
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+
+    <div class="ui basic modal" data-category-id="0">
+        <div class="ui icon header">
+            <i class="trash icon"></i>
+            Supprimer une catégorie
+        </div>
+        <div class="content table-text-center">
+            <p>Confirmez-vous la suppression de la catégorie « <span class="category-prompt"></span> » ?</p>
+        </div>
+        <div class="actions table-text-center">
+            <div class="ui basic cancel inverted button">
+                Annuler
+            </div>
+            <div class="ui red inverted button confirm-delete-button">
+                Supprimer la catégorie
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block post_javascripts %}
+{{ parent() }}
+
+<script src="{{ asset('js/a-cat-manager.js') }}"></script>
+
+{% endblock %}

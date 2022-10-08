@@ -1,0 +1,131 @@
+{#
+Fichier : account.html.twig
+Date : 2021-04-01
+Auteur : Davis Eath
+Fonction : Point d'entrée pour la page compte (modification)
+#}
+
+{% extends 'base.html.twig' %}
+
+{% block title 'compte / ' ~ parent() %}
+
+{% set template = 'account' %}
+
+{% form_theme form _self %}
+{% form_theme form2 _self %}
+
+{% block form_errors %}
+{% for error in errors %}
+<span class="form-error">{{ error.messageTemplate|trans(error.messageParameters, 'validators') }}</span>
+{% endfor %}
+{% endblock form_errors %}
+
+{% block main %}
+<div class="ui container grid">
+    <div class="column">
+        {% include('common/messages.html.twig') %}
+
+        <h2>Modification des informations</h2>
+
+        {{ form_start(form, { 'attr': { 'class': 'ui form' } }) }}
+
+        <h4 class="ui dividing header">Identifiant</h4>
+        <div class="fields">
+            <div class="six wide field {{ form.firstName.vars.valid ? '' : 'error' }}">
+                {{ form_label(form.firstName, 'Prénom') }}
+                {{ form_widget(form.firstName) }}
+                {{ form_errors(form.firstName) }}
+            </div>
+            <div class="six wide field {{ form.lastName.vars.valid ? '' : 'error' }}">
+                {{ form_label(form.lastName, 'Nom') }}
+                {{ form_widget(form.lastName) }}
+                {{ form_errors(form.lastName) }}
+            </div>
+            <div class="four wide field {{ form.gender.vars.valid ? '' : 'error' }}">
+                {{ form_label(form.gender, 'Genre') }}
+                {{ form_widget(form.gender, {'attr': {'class': 'ui fluid dropdown'}}) }}
+                {{ form_errors(form.gender) }}
+            </div>
+        </div>
+
+        <h4 class="ui dividing header">Emplacement</h4>
+        <div class="field {{ form.address.vars.valid ? '' : 'error' }}">
+            {{ form_label(form.address, 'Adresse') }}
+            {{ form_widget(form.address) }}
+            {{ form_errors(form.address) }}
+        </div>
+        <div class="fields">
+            <div class="six wide field {{ form.city.vars.valid ? '' : 'error' }}">
+                {{ form_label(form.city, 'Ville') }}
+                {{ form_widget(form.city) }}
+                {{ form_errors(form.city) }}
+            </div>
+            <div class="five wide field {{ form.province.vars.valid ? '' : 'error' }}">
+                {{ form_label(form.province, 'Province') }}
+                {{ form_widget(form.province, {'attr': {'class': 'ui fluid dropdown'}}) }}
+                {{ form_errors(form.province) }}
+            </div>
+            <div class="five wide field {{ form.postalCode.vars.valid ? '' : 'error' }}">
+                {{ form_label(form.postalCode, 'Code postal') }}
+                {{ form_widget(form.postalCode) }}
+                {{ form_errors(form.postalCode) }}
+            </div>
+        </div>
+
+        <h4 class="ui dividing header">Contact</h4>
+        <div class="two fields">
+            <div class="field {{ form.email.vars.valid ? '' : 'error' }}">
+                {{ form_label(form.email, 'Adresse courriel') }}
+                {{ form_widget(form.email) }}
+                {{ form_errors(form.email) }}
+            </div>
+            <div class="field {{ form.phoneNumber.vars.valid ? '' : 'error' }}">
+                {{ form_label(form.phoneNumber, 'Numéro de téléphone') }}
+                {{ form_widget(form.phoneNumber) }}
+                {{ form_errors(form.phoneNumber) }}
+            </div>
+        </div>
+
+        {{ form_widget(form.submit, {
+        'attr': { 'class': 'ui primary button' },
+        'label': 'Enregistrer',
+        }) }}
+
+        {{ form_end(form) }}
+
+        <div class="ui divider"></div>
+
+        <h2>Modification du mot de passe</h2>
+
+        {{ form_start(form2, { 'attr': { 'class': 'ui form' } }) }}
+
+        <h4 class="ui dividing header">Mot de passe actuel</h4>
+        <div class="field {{ form2.oldPassword.vars.valid ? '' : 'error' }}">
+            {{ form_label(form2.oldPassword, 'Votre mot de passe') }}
+            {{ form_widget(form2.oldPassword) }}
+            {{ form_errors(form2.oldPassword) }}
+        </div>
+
+        <h4 class="ui dividing header">Nouveau mot de passe</h4>
+        <div class="two fields">
+            <div class="field {{ form2.password.first.vars.valid ? '' : 'error' }}">
+                {{ form_label(form2.password.first, 'Choisissez un mot de passe') }}
+                {{ form_widget(form2.password.first) }}
+                {{ form_errors(form2.password.first) }}
+            </div>
+            <div class="field {{ form2.password.second.vars.valid ? '' : 'error' }}">
+                {{ form_label(form2.password.second, 'Confirmez votre mot de passe') }}
+                {{ form_widget(form2.password.second) }}
+                {{ form_errors(form2.password.second) }}
+            </div>
+        </div>
+
+        {{ form_widget(form2.submit, {
+        'attr': { 'class': 'ui primary button' },
+        'label': 'Enregistrer',
+        }) }}
+
+        {{ form_end(form2) }}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,62 @@
+{#
+Fichier : base.html.twig
+Date : 2021-05-16
+Auteur : Davis Eath
+Fonction : Squelette de la page HTML (admin)
+#}
+
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}tablestop admin{% endblock %}</title>
+
+    <link rel="shortcut icon" href="{{ asset('images/icon.png') }}" type="image/x-icon">
+
+    {% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.7/dist/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/styles.css') }}">
+    {% endblock %}
+
+    {% block javascripts %}
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.7/dist/semantic.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it@12.0.4/dist/markdown-it.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/inputmask@5.0.5/dist/jquery.inputmask.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.10.4/dayjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.10.4/plugin/duration.js"></script>
+    {% endblock %}
+</head>
+
+<body>
+    <div id="page">
+        {% include('common/admin_banner.html.twig') %}
+
+        <div class="main">
+            {% block main %}
+            {% endblock %}
+        </div>
+
+        {% include('common/footer.html.twig') %}
+    </div>
+
+    {% block post_javascripts %}
+    <script>
+        dayjs.extend(dayjs_plugin_duration);
+
+        $('.ui.sticky').sticky({
+            pushing: true,
+            context: '#page'
+        });
+
+        $('.ui.right.dropdown').dropdown({
+            on: 'hover'
+        });
+
+        $('.ui.fluid.dropdown').dropdown();
+    </script>
+    {% endblock %}
+</body>
+
+</html>

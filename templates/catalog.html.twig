@@ -1,0 +1,96 @@
+{#
+Fichier : catalog.html.twig
+Date : 2021-02-04
+Auteur : Davis Eath
+Fonction : Point d'entrée pour la page catalogue/accueil
+#}
+
+{% extends 'base.html.twig' %}
+
+{% block title 'catalogue / ' ~ parent() %}
+
+{% set template = 'catalog' %}
+
+{% block main %}
+{% include('common/messages.html.twig') %}
+
+<div class="ui grid">
+    <div class="four wide column container">
+        {{ include('filters.html.twig') }}
+    </div>
+
+    <div class="twelve wide column container">
+        {% if products|length > 0 %}
+        <div class="ui cards">
+            {% for product in products %}
+            <div class="ui card product-details" data-product-id="{{ product.id }}">
+                <a href="{{ path('product', { id: product.id }) }}" class="product image">
+                    {% if asset_exists('images/products/' ~ product.id ~ '_1.jpg') %}
+                    <img class="product-cover" src="{{ asset('images/products/' ~ product.id ~ '_1.jpg') }}" alt="" />
+                    {% else %}
+                    <img class="product-cover" src="{{ asset('images/no-image.png') }}" alt="" />
+                    {% endif %}
+                </a>
+                <div class="content">
+                    <a class="product header" href="{{ path('product', { id: product.id }) }}">{{ product.title }}</a>
+                </div>
+                <div class="ui bottom attached button animated vertical atc-button">
+                    <div class="visible content">{{ product.price|format_price }}</div>
+                    <div class="hidden content">
+                        <i class="cart plus icon"></i>
+                        Ajouter au panier
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="ui icon message">
+            <i class="search icon"></i>
+            <div class="content">
+                <div class="header">Aucun résultat</div>
+                <p>Aucun produit ne correspond à vos critères de recherche.</p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="ui small modal">
+    <i class="close icon"></i>
+    <div id="product-modal" class="scrolling image content"></div>
+    <div class="actions">
+        <button class="ui primary right labeled icon button atc-modal-button">
+            Ajouter au panier
+            <i class="cart plus icon"></i>
+        </button>
+    </div>
+</div>
+{% endblock %}
+
+{% block post_javascripts %}
+{{ parent() }}
+
+<script src="{{ asset('js/modal-manager.js') }}"></script>
+<script src="{{ asset('js/atc-manager.js') }}"></script>
+
+{% if selected_product is defined %}
+<script>
+    (() => {
+        __canOpenModal = false;
+
+        const path = window.location.pathname;
+        const query = window.location.search;
+
+        $('#product-modal').load(path + '?modal-render-from-catalog', () => {
+            $('.ui.modal').modal('show');
+
+            __canOpenModal = true;
+
+            // on remplace l'état d'historique actuel pour enregistrer l'html du modal courant
+            window.history.replaceState({ modalHtml: $('#product-modal').html() }, null, path + query);
+        });
+    })();
+</script>
+{% endif %}
+{% endblock %}

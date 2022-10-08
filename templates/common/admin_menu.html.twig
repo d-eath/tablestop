@@ -1,0 +1,38 @@
+{#
+Fichier : admin_menu.html.twig
+Date : 2021-05-16
+Auteur : Davis Eath
+Fonction : Menu latérale du panneau d'administration
+#}
+
+<div class="four wide column">
+    <div class="ui large vertical menu">
+        <div class="item">
+            <div class="header">Catégories</div>
+            <div class="menu">
+                <a href="{{ path('admin_categories') }}" class="{{ page == 'categories' ? 'active' : '' }} item">Liste des catégories</a>
+                <a href="{{ path('admin_categories_new') }}" class="{{ page == 'categories_new' ? 'active' : '' }} item">Ajouter une catégorie</a>
+            </div>
+        </div>
+        <div class="item">
+            <div class="header">Produits</div>
+            <div class="menu">
+                <a href="{{ path('admin_products') }}" class="{{ page == 'products' ? 'active' : '' }} item">Liste des produits</a>
+                <a href="{{ path('admin_products_new') }}" class="{{ page == 'products_new' ? 'active' : '' }} item">Ajouter un produit</a>
+            </div>
+        </div>
+        <div class="item">
+            <div class="header">Ventes</div>
+            <div class="menu">
+                <a href="{{ path('admin_sales') }}" class="{{ page == 'sales' ? 'active' : '' }} item">Rapport des ventes</a>
+            </div>
+        </div>
+        <div class="item">
+            <div class="header">Inventaire</div>
+            <div class="menu">
+                <a href="{{ path('admin_inventory') }}" class="{{ page == 'inventory' ? 'active' : '' }} item">Produits de l'inventaire</a>
+                <a href="{{ path('admin_inventory_restock') }}" class="{{ page == 'inventory_restock' ? 'active' : '' }} item">Produits à commander</a>
+            </div>
+        </div>
+    </div>
+</div>

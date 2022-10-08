@@ -1,0 +1,44 @@
+{#
+Fichier : admin_banner.html.twig
+Date : 2021-05-16
+Auteur : Davis Eath
+Fonction : Bannière et barre de navigation du site pour le panneau d'administration
+#}
+
+<div class="banner">
+	<div class="banner-text">
+		<img draggable="false" src="{{ asset('images/icon.png') }}" alt="" />
+		&nbsp;
+		<span class="brand-large">tablestop</span>
+	</div>
+</div>
+
+<div class="ui sticky inverted menu">
+	<div class="item">
+		<img draggable="false" src="{{ asset('images/icon.png') }}" alt="" />
+		&nbsp;
+		<span class="brand">tablestop</span>&nbsp; • Panneau d'administration
+	</div>
+
+	<div class="right menu">
+		<a href="{{ path('catalog') }}" class="ui item">Retour à l'espace client</a>
+		{% if app.session.get('loggedInCustomer') is not null %}
+		<div class="ui right dropdown item">
+			<i class="user icon"></i>
+			{{ app.session.get('customerName') }}
+			<i class="dropdown icon"></i>
+			<div class="menu">
+				<a href="{{ path('admin_logout') }}" class="ui item">
+					<i class="sign out alternate icon"></i>
+					Déconnexion
+				</a>
+			</div>
+		</div>
+		{% else %}
+		<div class="ui item">
+			<i class="user icon"></i>
+			<span class="italic">Non connecté</span>
+		</div>
+		{% endif %}
+	</div>
+</div>

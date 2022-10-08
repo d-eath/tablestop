@@ -1,0 +1,39 @@
+{#
+Fichier : contact.html.twig
+Date : 2021-02-04
+Auteur : Davis Eath
+Fonction : Point d'entrée pour la page contact
+#}
+
+{% extends 'base.html.twig' %}
+
+{% block title 'contact / ' ~ parent() %}
+
+{% set template = 'contact' %}
+
+{% block main %}
+<div class="ui container grid">
+    <div class="column">
+        <h1>À propos de <span class="brand-text">tablestop</span></h1>
+        <p><span class="brand-text">tablestop</span> (prononcé « tables top » ou « table stop ») est une boutique qui se
+            spécialise sur les jeux de société.</p>
+        <p>Nous offrons divers jeux de table, jeux de cartes (incluant les jeux de cartes à collectionner), et quelques
+            objets communs utiles aux jeux de société.</p>
+        <h1>Politique de remboursement</h1>
+        <ul>
+            <li>Une commande peut être annulée sans frais avant l'expédition du colis.</li>
+            <li>Vous pouvez retourner des articles dans les 14 jours suivant la réception de votre colis à vos frais
+                d'expédition.</li>
+            <li>Seuls les articles en bon état dans leur emballage original peuvent être retournés.</li>
+            <li><strong>Les jeux de cartes à collectioner ne peuvent pas être retournés.</strong></li>
+        </ul>
+        <h1>Frais de livraison</h1>
+        <p>Des frais de 5,00 CDN$ s'appliquent pour la livraison au Canada. Pour les commandes supérieures à 100,00
+            CDN$, la livraison au Canada est gratuite.</p>
+        <p>Les frais de livraison internationale varient. Veuillez nous contacter pour plus d'information.</p>
+        <h1>Pour nous contacter</h1>
+        <p>Veuillez nous envoyer un courrier électronique à : <a
+                href="mailto:contact@tablestop.com">contact@tablestop.com</a></p>
+    </div>
+</div>
+{% endblock %}

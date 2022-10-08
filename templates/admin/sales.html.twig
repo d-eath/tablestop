@@ -1,0 +1,68 @@
+{#
+Fichier : sales.html.twig
+Date : 2021-05-16
+Auteur : Davis Eath
+Fonction : Page admin rapport des ventes
+#}
+
+{% extends 'admin/base.html.twig' %}
+
+{% block title 'ventes / ' ~ parent() %}
+
+{% set page = 'sales' %}
+
+{% block main %}
+
+<div class="ui container grid">
+    <div class="sixteen wide column">
+        {% include('common/messages.html.twig') %}
+    </div>
+
+    {% include('common/admin_menu.html.twig') %}
+
+    <div class="twelve wide column">
+        <h1>Rapport des ventes</h1>
+        {% if orders|length > 0 %}
+        <table class="ui celled table">
+            <thead>
+                <tr>
+                    <th style="width: 20%">Numéro</th>
+                    <th style="width: 30%">Date</th>
+                    <th style="width: 30%">Client</th>
+                    <th style="width: 20%">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>{{ order.id }}</td>
+                    <td data-uts-date="{{ order.date|date('U') }}"></td>
+                    <td>{{ order.customer.username }}</td>
+                    <td class="table-text-right">{{ order.total|format_price }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="ui icon message">
+            <i class="robot icon"></i>
+            <div class="content">
+                <div class="header">Aucune vente</div>
+                <p>Cette boutique n'a aucune vente enregistrée.</p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block post_javascripts %}
+{{ parent() }}
+
+<script>
+    $('[data-uts-date]').each(function () {
+        $(this).text(dayjs($(this).data('uts-date') * 1000).format('YYYY-MM-DD HH:mm:ss'));
+    });
+</script>
+
+{% endblock %}

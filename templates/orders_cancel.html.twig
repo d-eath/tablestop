@@ -1,0 +1,75 @@
+{#
+Fichier : orders_cancel.html.twig
+Date : 2021-04-23
+Auteur : Davis Eath
+Fonction : Point d'entrée pour la page d'annulation d'une commande
+#}
+
+{% extends 'base.html.twig' %}
+
+{% block title 'annulation / ' ~ parent() %}
+
+{% set template = 'orders' %}
+
+{% block main %}
+<div class="ui container grid">
+    <div class="column">
+        <h1>Annulation d'une commande</h1>
+        <p>Confirmez-vous l'annulation de la commande suivante ?</p>
+        <div class="ui segments">
+            <div class="ui secondary segment">
+                <div class="ui grid">
+                    <div class="three wide column">
+                        <div class="bold">Commande</div>
+                        <div>№ {{ order.id }}</div>
+                    </div>
+                    <div class="three wide column">
+                        <div class="bold">Date</div>
+                        <div data-uts-date="{{ order.date|date('U') }}"></div>
+                    </div>
+                    <div class="three wide column">
+                        <div class="bold">Total</div>
+                        <div>{{ order.total|format_price }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ui segment">
+                {% for item in order.items %}
+                <div class="product-order">
+                    {% if asset_exists('images/products/' ~ item.product.id ~ '_1.jpg') %}
+                    <img class="product-icon" src="{{ asset('images/products/' ~ item.product.id ~ '_1.jpg') }}"
+                        alt="" />
+                    {% else %}
+                    <img class="product-icon" src="{{ asset('images/no-image.png') }}" alt="" />
+                    {% endif %}
+                    <span class="bold">({{ item.quantity + item.backorderQuantity }}x)</span>&nbsp;
+                    {{ item.product.title }}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="float-right">
+
+            <form method="post">
+                <button type="submit" class="ui labeled negative icon button">
+                    <i class="times icon"></i>
+                    Annuler la commande
+                </button>
+
+                <a href="{{ path('orders') }}" class="ui button">
+                    Retourner à mes commandes
+                </a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block post_javascripts %}
+{{ parent() }}
+
+<script src="{{ asset('js/order-manager.js') }}"></script>
+
+{% endblock %}

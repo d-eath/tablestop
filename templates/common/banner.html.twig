@@ -1,0 +1,61 @@
+{#
+Fichier : banner.html.twig
+Date : 2021-02-04
+Auteur : Davis Eath
+Fonction : Bannière et barre de navigation du site
+#}
+
+<div class="banner">
+	<div class="banner-text">
+		<img draggable="false" src="{{ asset('images/icon.png') }}" alt="" />
+		&nbsp;
+		<span class="brand-large">tablestop</span>
+	</div>
+</div>
+
+<div class="ui sticky inverted menu">
+	<div class="item">
+		<img draggable="false" src="{{ asset('images/icon.png') }}" alt="" />
+		&nbsp;
+		<span class="brand">tablestop</span>
+	</div>
+	<a href="{{ path('catalog') }}" class="{{ template == 'catalog' ? 'active' : '' }} item">Catalogue</a>
+	<a href="{{ path('contact') }}" class="{{ template == 'contact' ? 'active' : '' }} item">Contact</a>
+
+	<div class="right menu">
+		{% if app.session.get('loggedInCustomer') is not null %}
+		<div class="ui right dropdown item">
+			<i class="user icon"></i>
+			{{ app.session.get('customerName') }}
+			<i class="dropdown icon"></i>
+			<div class="menu">
+				{% if app.session.get('loggedInCustomer') == 0 %}
+				<a href="{{ path('admin') }}" class="ui item">
+					<i class="tools icon"></i>
+					Panneau d'administration
+				</a>
+				{% endif %}
+				<a href="{{ path('orders') }}" class="ui {{ template == 'orders' ? 'active' : '' }} item">
+					<i class="shopping bag icon"></i>
+					Mes commandes
+				</a>
+				<a href="{{ path('account') }}" class="ui {{ template == 'account' ? 'active' : '' }} item">
+					<i class="user circle icon"></i>
+					Modifier mon compte
+				</a>
+				<a href="{{ path('logout') }}" class="ui item">
+					<i class="sign out alternate icon"></i>
+					Déconnexion
+				</a>
+			</div>
+		</div>
+		{% else %}
+		<a href="{{ path('signup') }}" class="ui {{ template == 'signup' ? 'active' : '' }} item">Créer un compte</a>
+		<a href="{{ path('login') }}" class="ui {{ template == 'login' ? 'active' : '' }} item">Connexion</a>
+		{% endif %}
+		<a href="{{ path('cart') }}" class="ui {{ template == 'cart' ? 'active' : '' }} item">
+			<i class="shopping cart icon"></i>
+			<span class="cart-item-count">{{ app.session.get('cartItemCount') ?? 0 }}</span>
+		</a>
+	</div>
+</div>

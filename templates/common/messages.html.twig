@@ -1,0 +1,14 @@
+{#
+Fichier : messages.html.twig
+Date : 2021-04-01
+Auteur : Davis Eath
+Fonction : Afficher les messages du Flashbag
+#}
+
+{% for type, messages in app.session.flashbag.all %}
+{% for message in messages %}
+<div class="ui {{ type }} message">
+    {{ message }}
+</div>
+{% endfor %}
+{% endfor %}

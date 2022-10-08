@@ -1,0 +1,28 @@
+{#
+Fichier : filters.html.twig
+Date : 2021-02-04
+Auteur : Davis Eath
+Fonction : Module de filtre dans le catalogue (recherche/catégories)
+#}
+
+<div class="ui vertical menu fluid">
+    <div class="item">
+        <form class="searchbar ui transparent icon input">
+            <input type="text" name="q" placeholder="Rechercher..." value="{{ search_query }}">
+            {% if category_query|length > 0 %}
+            <input type="hidden" name="c" value="{{ category_query }}">
+            {% endif %}
+            <i class="search icon"></i>
+        </form>
+    </div>
+    <div class="item">
+        <h4>Catégories</h4>
+    </div>
+    <a href="{{ path('catalog', { 'c': null, 'q': search_query }) }}"
+        class="{{ category_query|length == 0 ? 'active teal' : '' }} item">Tous les produits</a>
+
+    {% for category in categories %}
+    <a href="{{ path('catalog', { 'c': category.id, 'q': search_query }) }}"
+        class="{{ category_query == category.id ? 'active teal' : '' }} item">{{ category.name }}</a>
+    {% endfor %}
+</div>

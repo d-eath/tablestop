@@ -1,0 +1,60 @@
+{#
+Fichier : checkout_success.html.twig
+Date : 2021-04-23
+Auteur : Davis Eath
+Fonction : Point d'entrée pour la page de succès d'une commande
+#}
+
+{% extends 'base.html.twig' %}
+
+{% block title 'merci ! / ' ~ parent() %}
+
+{% set template = 'none' %}
+
+{% block main %}
+<div class="ui container grid">
+    <div class="column larger-text">
+        <h1>Merci de magasiner chez nous !</h1>
+        <p>La <span class="bold">commande № {{ order.id }}</span> est en préparation !</p>
+
+        <h3>Adresse de livraison</h3>
+        <p>La commande sera envoyé à :</p>
+        <ul class="full-address">
+            <li>{{ customer.firstName }} {{ customer.lastName }}</li>
+            <li>{{ customer.address }}</li>
+            <li>{{ customer.city }}, {{ customer.province }}</li>
+            <li>{{ customer.postalCode }}</li>
+        </ul>
+
+        {% if hasBackorder %}
+        <h3>Articles en rupture de stock &nbsp;<div class="ui red horizontal label">Important</div></h3>
+        <p>Les articles suivants sont en rupture de stock et ont été placés dans une commande différée :</p>
+        <ul>
+            {% for item in order.items %}
+            {% if item.backorderQuantity > 0 %}
+            <li>{{ item.product.title }} <span class="bold">({{ item.backorderQuantity }} manquant)</span></li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <h3>Facturation</h3>
+        <p>Un courriel contenant une facture détaillée de <span class="bold">{{ order.total|format_price }}</span> a été
+            envoyé à <span class="bold">{{ customer.email }}</span>.</p>
+
+        <h3>Annulation</h3>
+        <p>Vous disposez de <span class="bold">48 heures</span> pour annuler cette commande sans frais.</p>
+        <p>Consultez vos commandes pour demander une annulation.</p>
+
+        <a href="{{ path('catalog') }}" class="ui labeled icon button">
+            <i class="store alternate icon"></i>
+            Retourner au catalogue
+        </a>
+
+        <a href="{{ path('orders') }}" class="ui labeled icon button">
+            <i class="shopping bag icon"></i>
+            Consulter mes commandes
+        </a>
+    </div>
+</div>
+{% endblock %}
